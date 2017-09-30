@@ -1,0 +1,194 @@
+<?php
+
+class mz_menu_01
+{
+	var $mz_menu_title_array;
+    var $h_username;
+	var $h_home;
+	var $h_return;
+	var $h_close;
+	var $h_reload;
+	var $h_msg;
+	var $h_logo;
+	var $h_date_time;
+	var $h_check_save;  // prompt for save?
+	
+	function menu_display() //alisasing display function
+	{
+		$this->display();
+	}	
+	
+	function display()
+	{
+	
+/*	
+	$this->mz_menu_title_array[1]="Manage_Member_Records";
+	$this->mz_menu_title_array[]="Manage_Membership";
+	$this->mz_menu_title_array[]="Sysetm Admin";
+	
+	
+	//$this->mz_menu_title_array=array("M1", "m2", "M3");
+	$this->mz_menu_title_array="U1";
+	
+	print $this->mz_menu_title_array[0];
+	
+	$w1="m1";
+	
+	print <<< endprint
+	
+	<script>document.getElementById('mz_menu01').innerHTML=$this->mz_menu_title_array</script>
+	
+
+	<style>
+	.mz_menu
+	{
+		background-color:#ededed;
+		color: #000055;
+		font-sze:14px;
+		padding:3px;
+		border-style: solid;
+		border-right:solid;border-right-width:2px;
+		border-left:solid;border-left-width:2px;
+		border-color:#000000;
+	}	
+	</style>
+	
+	<div><span id="mz_menu01" class="mz_menu"></span></div>
+	
+		
+endprint;
+
+*/
+
+ $b1="<input class=\"mz_b_menu\" id=\"b1\" type=\"button\" value=\"Manage Membership\" style=\"color:#0000aa;padding:1px;\" onclick=\"mz_manage_member()\"></input>";
+ $b2="<input class=\"mz_b_menu\" id=\"b2\" type=\"button\" value=\"Membership Reports\" style=\"color:#0000aa;padding:1px;\" onclick=\"member_report()\"></input>";
+ $b3="<input class=\"mz_b_menu\" id=\"b3\" type=\"button\" value=\"System Admin\" style=\"color:#0000aa;padding:1px;\" onclick=\"sys_admin()\"></input>";
+ $b4="<input class=\"mz_b_menu\" id=\"b4\" type=\"button\" value=\"Logout\" style=\"color:#aa0000;padding:1px;\" onclick=\"confirm_logout()\"></input>";
+ 
+ $mz_menu_sys = $b1.$b2.$b3.$b4;
+ 
+ 
+ $b11="<input class=\"mz_b_s_menu\" type=\"button\" value=\"Add New Member\" style=\"color:#0000aa;padding:1px;\" onclick=\"mz_add_member()\"></input>";
+ $b12="<input class=\"mz_b_s_menu\" type=\"button\" value=\"Edit Member\" style=\"color:#0000aa;padding:1px;\" onclick=\"mz_edit_member()\"></input>";
+ $b13="<input class=\"mz_b_s_menu\" type=\"button\" value=\"Delete Member\" style=\"color:#0000aa;padding:1px;\" onclick=\"mz_delete_member()\"></input>";
+ $b14="<input class=\"mz_b_s_menu\" type=\"button\" value=\"List Members\" style=\"color:#0000aa;padding:1px;\" onclick=\"mz_delete_member()\"></input>";
+ $b15="<input class=\"mz_b_s_menu\" type=\"button\" value=\"Process Memberships\" style=\"color:#0000aa;padding:1px;\" onclick=\"mz_delete_member()\"></input>";
+ 
+ $mz_menu_sys_b1 = $b11.$b12.$b13.$b14.$b15;
+ 
+ 
+ 
+ //$mz_menu_01 = $mz_menu_sys;
+ 
+ //echo $mz_menu_01;
+ 
+		
+	print <<< endprint
+	
+	<style>
+	.mz_menu
+	{
+		background-color:#dddddd;
+		color: #000055;
+		font-size:2em;
+		padding:1px;
+		text-decoration:underline;		
+		
+	}	
+	
+	.mz_menu:hover, .mz_menu:active
+	{
+	    	background:#ffffff;
+	    	text-decoration:underline;
+    }	
+    
+    .mz_b_menu
+	{
+		background-color:#dddddd;
+		color: #000055;
+		font-size:1em;
+		#text-decoration:underline;		
+		width:150px;
+		#border-top:0px;
+		#border-left:0px;
+		#border-bottom:2px;
+		#border-right:2px;
+		
+	}	
+	
+	.mz_b_menu:hover, .mz_b_s_menu:active
+	{
+	    	background-color:#ffffff;
+	    	text-decoration:underline;
+	    		
+    }
+    
+    .mz_b_s_menu
+	{
+		background-color:#dddddd;
+		color: #000055;
+		font-size:1em;
+		#text-decoration:underline;
+		width:180px;
+		#border-top:1px;
+		#border-left:0px;
+		#border-bottom:10px;
+		#border-right:2px;
+				
+	}	
+	
+	.mz_b_s_menu:hover, .mz_b_s_menu:active
+	{
+	    	background-color:#ffffff;
+	    	text-decoration:underline;
+    }
+	</style>
+	
+	<script>
+	function mz_manage_member()
+  	{
+		var m1 = document.getElementById("mz_sys_menu_b1");
+
+		m1.style.zIndex=2;
+		m1.style.display ="inherit";
+		
+			
+	}	
+	
+	function mz_add_member()
+	{
+		//alert("In Add");
+		document.getElementById("b1").style.backgroundcolor="#ffffff";
+		document.getElementById("mz_sys_menu_b1").style.display ="none";
+		location.href="mz_register.php";
+	}
+	
+	</script>
+	
+		<!--table>
+		<tr>
+		<td-->
+		
+		<div style="position:relative;top:-10px;z-index:1;">$mz_menu_sys</div>
+		
+			<div id="mz_sys_menu_b1" 
+		    	style="position:relative;top:-20px;left:10px;width:90%;
+				z-index:0;display:none;">
+			$mz_menu_sys_b1
+			</div>
+		
+		
+		
+		<!--/td>
+		</tr-->
+		
+		
+		
+endprint;
+
+
+	
+
+
+	}
+}

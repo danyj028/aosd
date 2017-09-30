@@ -1,0 +1,357 @@
+<?php
+
+function happy_bday($w_fname, $w_dob)
+{
+	print <<< endprint
+	<script language="javascript">
+	window.open("/mzone/inc/mz_hb.php?x_fname=$w_fname&x_dob_str=$w_dob","Happy_Birthday","width=480, height=480")
+	</script>
+
+endprint;
+}
+
+function check_anouncement($w_userid, $w_uname, &$do_me, &$w_db, &$w_an_tag)
+{
+/*
+
+	if ($do_me)
+	{
+
+		$w_query = "select el_an_start as c from el_announcement where
+						(el_an_start <= current_date) and
+						((el_an_start + el_an_days) >= current_date) and
+						(el_an_audience = '_all')";
+						
+		$w_stm = $mz_db->prepare($w_query);
+		$w_stm->execute();
+
+		$w_rec  = $w_stm->fetch(PDO::FETCH_ASSOC);		
+
+		$w_rec_no = $w_stm->rowCount();
+
+		//$w_db->query($w_query);
+
+		if ($w_rec_no > 0)
+		{
+
+			//$w_an_tag = true;
+
+			print <<< endprint
+			<script language="javascript">
+				window.open("/mzone/el_tools/el_s_an_display.php?x_userid=$w_userid","Announcement","width=640, height=440")
+			</script>
+
+endprint;
+		}
+
+		$w_query2 = "select el_an_start from el_announcement where
+									(el_an_start <= current_date) and
+									((el_an_start + el_an_days) >= current_date) and
+									(el_an_audience = '$w_userid')";
+									
+		$w_stm = $mz_db->prepare($w_query2);
+		$w_stm->execute();
+
+		$w_rec  = $w_stm->fetch(PDO::FETCH_ASSOC);
+
+		$w_rec_no = $w_stm->rowCount();
+
+		//$w_db->query($w_query2);
+
+		if ($w_rec_no > 0)
+		{
+
+			//$w_an_tag = true;
+
+		print <<< endprint
+			<script language="javascript">
+				window.open("/mzone/mz_tools/mz_p_an_display.php?x_userid=$w_userid&x_username=$w_uname","Personal_Announcement","width=640, height=440")
+			</script>
+
+endprint;
+		}
+
+		$do_me = false;
+		}
+*/
+}
+
+
+
+/********************************************/
+session_start();
+
+/* if (isset($_COOKIE["MZ_dbxxx"])&&isset($_COOKIE["MZauth"]))
+{
+	$w_dbxxx = $_SESSION['MZ_dbxxx'];
+}
+else
+{
+	die("Error using MZone.<br>Probable cause: User is not logged in or your login session has been invalidated.<br>Solution: Close the browser and start again [err:l01].");
+}
+*/
+
+//echo session_name("PHPSESSID");
+
+//$short_session_id = substr($_SESSION["PHPSESSID"],0,15);
+$short_session_id = substr(session_id(), 0, 15);
+$w_timestamp = date( "Y-m-d, h:i:s", time() );
+$w_time_string = trim(date( "H:i \o\\n D d-M-Y", time() ));
+$w_userid = $_SESSION["MZuserid"];
+
+//echo $short_session_id;die();
+
+require "./inc/connect_to_db.php";
+include "./inc/mz_header.php";
+//include "./inc/mz_menu_01.php";
+
+//Log user in log file.
+
+
+$w_query = "insert into mz_log01 values ('$w_userid',  default, '$short_session_id')";
+
+$w_stm = $mz_db->prepare($w_query);
+//$w_stm->execute();
+
+
+//$w_rec  = $w_stm->fetch(PDO::FETCH_ASSOC);
+
+//$w_rec_no = $w_stm->rowCount();
+//$db->query($w_query);
+
+/*
+ * $w_query2 ="select fname, dob from mzuser where id = '$w_userid' ";
+
+$w_stm = $mz_db->prepare($w_query2);
+$w_stm->execute();
+
+$w_rec  = $w_stm->fetch(PDO::FETCH_ASSOC);
+
+$w_rec_no = $w_stm->rowCount();
+//$db->query($w_query2);
+
+if ($w_rec_no > 0)
+{
+	$w_dob = $w_rec["dob"];
+	$w_1 = explode("-", $w_dob);
+
+	if (count($w_1) > 2)
+	{
+		$w11 = $w_1[1]."/".$w_1[2];
+		$w_2 = explode("-", date("Y-m-d", time()));
+		$w21 = $w_2[1]."/".$w_2[2];
+
+	 	if ($w21 == $w11)
+	 	{
+			$w_dob = date("d F", mktime(0,0,0,$w_1[1],$w_1[2],$w_1[0]));
+			happy_bday($w_rec["fname"], $w_dob);
+		}
+	}
+}
+
+*/
+
+
+
+$auth_level = $_SESSION["MZauth"];
+
+$auth_level = 2;
+	
+$w_username = $_SESSION["MZ_loginname"];
+$w_dbxxx = $_SESSION["MZ_dbxxx"];
+
+if ($auth_level > 2)
+{
+//  User with auth_level > 2 have adminstrator access to
+
+echo "dada";
+print <<< endprint
+
+<!DOCTYPE public "-//w3c//dtd html 4.01 transitional//en"
+		"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+	<meta HTTP-EQUIV="Pragma" CONTENT="No-cache">
+    <link rel=stylesheet href="mz_css/elt_01.css" type="text/css">
+    <title>MZone</title>
+
+<script language="javascript">
+    function confirm_logout()
+   {
+   if (confirm("Please click [OK] to confirm logout from MZone, or [Cancel] to continue working."))
+     {
+        location.href = "/mzone/mz_logout.php";
+     }
+   }
+
+	function check_announcement(w_userid,w_username)
+	{
+		window.open("/mzone/el_tools/el_s_an_display.php?x_userid=w_userid","Announcement","width=640, height=440");
+		w_url = "/mzone/el_tools/el_p_an_display.php?x_userid="+w_userid+"&x_username=" + w_username;
+		window.open(w_url,"Personal Announcement","width=640, height=440");
+	}
+
+</script>
+
+</head>
+
+<body bgcolor=#CDBE83>
+
+	<!--div align="center">
+	<img src="/mzone/elt_img/mzone_01_12.png"  width="180" alt="MZone : Membership Manageent" border=0>
+  </div-->
+  <p>
+  <br>
+<!--div style="position:relative;top:10px;text-align:center;">
+<IMG src="elt_mg/ell_pg_bkg1.png" width="597" height="297" align="middle" border="0">
+</div>
+
+<div style="position:relative;top:-260px;text-align:center;"-->
+<div style="position:relative;text-align:center;">
+  <table width="50%" align="center" border="0" cellspacing="1" >
+  <tr valign="top"><td>
+  <!--div style="color: #E7E7E7;background: #0008A9;font-size:14pt;" align="center"-->
+	<div style="color: #FFDD00;background: #8F9700;font-size:14pt;" align="center">
+  	<b>Current User is&nbsp;&nbsp;<i> $w_username</i></b>
+		<br>
+			<span style="font-size:10pt;">$w_time_string</span>
+		</div></td><tr><td align="center">
+  <table cellpadding="5" width="100%">
+    <tr align="center"> <td width="33%">
+		<a href="el_educator/el_ed_00.php" name="Instructor_area"><IMG src="el01img/as2325.gif" width="125" height="150" border="1"><br>Educator</a></td>
+    <td width="33%"><a href="el_student/el_st_00.php"
+name="Student_area"><IMG src="elt_img/as1287.gif" width="125" height="150" border="1"><br>Student</a></td>
+     <td width="*">
+		<a href="elt_01.html" name="Admin_area"><IMG src="elt_img/as0134.gif" width="125" height="150" border="1"><br>Administrator</a></td></tr>
+			<tr><td colspan="3"><hr color=#8F9700></td></tr>
+
+      </table>
+  </td>
+  </tr>
+  </table>
+  <br>
+   <div align="center"><font size="+1" >
+  <a href="javascript:confirm_logout()" name="Logout"><img src="./elt_img/elt_logout_1.png" width="66" height="21" alt="Logout" border="0"></a>
+   </font>
+   </div>
+
+</div>
+
+</body>
+</html>
+
+endprint;
+
+
+if (isset($_SESSION['EL_do_announcement']))
+	{
+		$EL_do_announcement = $_SESSION['EL_do_announcement'];
+		$w_an_tag = false;
+
+		check_anouncement($w_userid, $w_username, $EL_do_announcement, $db, $w_an_tag);
+
+		$_SESSION["EL_do_announcement"] = $EL_do_announcement;
+	}
+
+}
+elseif ($auth_level == 3) 
+#Coach level access
+{
+
+  include "./elt_coach/elt_coach_00.php";
+}
+elseif ($auth_level > 0)
+{
+
+$h = new mz_header_2;
+$m = new mz_menu_01;
+
+$h->h_logo = "t";
+$h->h_return="f";
+$h->h_home="f";
+$h->h_username="";
+$h->h_title = "<font size=\"+2\">Membership Management</font>";
+// $h->h_title = "<img src=\"/mzone/elt_img/mzone_01-18.png\" width=\"180\"  alt=\"MZone Membership Management\" align=\"left\">";
+$h->h_date_time = "t";
+
+$h->h_display();
+
+//$m->display();
+
+
+ #  User with auth_level <= 2 have normal user area only access
+print <<< endprint
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+
+<head>
+		<META HTTP-EQUIV="Pragma" CONTENT="No-cache">
+    <link rel=stylesheet href="elt_css/elt_01.css" type="text/css">
+    <title>eLivelearn V 0.6</title>
+</head>
+
+<body>
+
+<script language="javascript">
+    function confirm_logout()
+   {
+   if (confirm("Please click [OK] to confirm logout from MZone, or [Cancel] to continue working."))
+     {
+        location.href = "/mzone/mz_logout.php";
+     }
+   }
+
+	function check_announcement(w_userid,w_username)
+	{
+		window.open("/mzone/el_tools/el_s_an_display.php?x_userid=w_userid","Announcement","width=640, height=440");
+		w_url = "/mzone/el_tools/el_p_an_display.php?x_userid="+w_userid+"&x_username=" + w_username;
+		window.open(w_url,"Personal Announcement","width=640, height=440");
+	}
+</script>
+
+
+<body>
+    <br>
+	<table width="40%" align="center" border="0" cellspacing="0">
+	<tr valign="top"><td>
+	<div style="color: #FFDD00; background:#337197;font-size:12pt;"  align="center"><b>$w_username&nbsp; Welcome to You</b><br>
+			<span style="font-size:10pt;">$w_time_string</span>
+	</div></td>
+  </tr>
+  </table>
+	<br>
+
+   <div align="center"><font size="+1" >
+  <a href="javascript:confirm_logout()" name="Logout"><img src="./elt_img/elt_logout_1.png" width="66" height="21" alt="Logout" border="0"></a>
+   </font>
+   </div>
+
+endprint;
+
+$w_an_tag = false;
+
+//check_anouncement($w_userid, $w_username, $EL_do_announcement, &$db, &$w_an_tag);
+
+//$_SESSION["EL_do_announcement"] = $EL_do_announcement;
+
+}
+else
+{
+  echo "<font color=#FF0000><h3>Your Login Session is not valid anymore. Please close the browser and start again.</h3></font>";
+}
+
+/*
+//if ($w_an_tag)
+{
+	echo "<div style=\"font-size:10pt;text-align:right;padding-bottom:20px;\"><a href=javascript:check_announcement('$w_userid','$w_username')>[Read Announcements]</a></div>";
+}
+
+echo "<div style=\"font-size:8pt;color:#00aa00;text-align:right;\">Connected to database: ".$w_dbxxx."<br>[php version]<div>";
+*/
+
+?>
+
+</body>
+</html>

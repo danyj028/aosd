@@ -1,0 +1,1 @@
+update mz_user_profile set profile_vector=to_tsvector(profile) where user_id = '$w_userid';

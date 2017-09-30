@@ -1,0 +1,46 @@
+<?php
+
+print <<< endprint
+
+
+<div style="text-align:right;position:relative;top:-8px;right:-18px;z-index:inherit">
+<input type="button" style="height:30px; width:30px;background-color:#ffffff;font-size:16px;text-align:center; solid;font-weight:bold;color:#880000;" name="Cancel" value="X" onclick="close_wkspace_00();">
+</div>
+<div style="height:500px;">
+This is All records!!
+</div>
+endprint;
+
+
+include "../inc/mz_user_classes.php";
+require "connect_to_db.php";
+//require "../inc/connect_to_db.php";
+//$db1 = new mz_db;
+
+require "../inc/mz_report_classes.php";
+
+$r = new mz_report;
+
+$r->r_title = "All Member Records";
+$r->r_msg ="All Member records in alphabetical order";
+
+/* $r->r_query_string = "Select distinct u.id, u.surname, u.fname, u.oname, ug.group_id from el_user_group as ug
+								join eluser as u on u.id = ug.userid
+								where ug.group_id = '$w_group_id'
+								order by ug.group_id, u.surname, u.fname"; */
+								
+/* $r->r_query_string = "select distinct as_program_id, as_program_desc, as_subject_code from el_as_program_description order by as_program_desc"; */
+
+$r->r_query_string = "select surname, fname, orgname, rec_status from mzuser order by surname";
+					
+
+$r->r_headings = array("Surname", "First name", "Organisation");
+$r->r_fields = array("surname", "fname", "orgname");
+$r->r_rec_page = $_GET["x_rec_page"];
+$r->r_rec_offset = $_GET["x_rec_offset"];
+//$r->r_script_name = $SCRIPT_NAME."?x_group_id=$w_group_id&";
+$r->r_script_name = $_SERVER["SCRIPT_NAME"]."?";
+
+$r->r_generate($db1);
+
+?>

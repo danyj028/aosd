@@ -1,0 +1,22 @@
+
+h1 :{
+     color: #66eeee;
+}
+
+h2.red: {
+     color: #FF0000;
+}
+
+h2 :{
+     color: #669999;
+}
+
+h4 :{
+     color: #000080;
+}
+
+body {
+
+   background-image: url("../elt_img/el01sbkg.jpg");
+}
+
